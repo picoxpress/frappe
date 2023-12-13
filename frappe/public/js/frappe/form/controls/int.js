@@ -2,12 +2,10 @@ frappe.ui.form.ControlInt = class ControlInt extends frappe.ui.form.ControlData 
 	static trigger_change_on_input_event = false;
 	make() {
 		super.make();
-		// $(this.label_area).addClass('pull-right');
-		// $(this.disp_area).addClass('text-right');
 	}
 	make_input() {
-		var me = this;
 		super.make_input();
+<<<<<<< HEAD
 		this.$input
 			// .addClass("text-right")
 			.on("focus", function () {
@@ -18,6 +16,12 @@ frappe.ui.form.ControlInt = class ControlInt extends frappe.ui.form.ControlData 
 				}, 100);
 				return false;
 			});
+=======
+		this.$input.on("focus", () => {
+			document.activeElement?.select?.();
+			return false;
+		});
+>>>>>>> 119a4bdbc1 (fix: remove delay from numeric field selection (#23759))
 	}
 	validate(value) {
 		return this.parse(value);
