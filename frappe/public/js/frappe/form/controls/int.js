@@ -5,23 +5,15 @@ frappe.ui.form.ControlInt = class ControlInt extends frappe.ui.form.ControlData 
 	}
 	make_input() {
 		super.make_input();
-<<<<<<< HEAD
+		let me = this;
 		this.$input
 			// .addClass("text-right")
-			.on("focus", function () {
-				setTimeout(function () {
-					if (!document.activeElement) return;
-					document.activeElement.value = me.validate(document.activeElement.value);
-					document.activeElement.select();
-				}, 100);
+			.on("focus", () => {
+				if (!document.activeElement) return;
+				document.activeElement.value = me.validate(document.activeElement.value);
+				document.activeElement.select?.();
 				return false;
 			});
-=======
-		this.$input.on("focus", () => {
-			document.activeElement?.select?.();
-			return false;
-		});
->>>>>>> 119a4bdbc1 (fix: remove delay from numeric field selection (#23759))
 	}
 	validate(value) {
 		return this.parse(value);
