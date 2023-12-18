@@ -33,11 +33,15 @@ context("Control Float", () => {
 				cy.get_field("float_number", "Float").clear();
 				cy.wait(200);
 				cy.fill_field("float_number", d.input, "Float").blur();
+				cy.wait(200);
 				cy.get_field("float_number", "Float").should("have.value", d.blur_expected);
-
+				cy.wait(200);
 				cy.get_field("float_number", "Float").focus();
+				cy.wait(200);
 				cy.get_field("float_number", "Float").blur();
+				cy.wait(200);
 				cy.get_field("float_number", "Float").focus();
+				cy.wait(200);
 				cy.get_field("float_number", "Float").should("have.value", d.focus_expected);
 			});
 		});
