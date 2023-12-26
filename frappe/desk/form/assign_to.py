@@ -258,7 +258,7 @@ def notify_assignment(
 		return
 
 	# Search for email address in description -- i.e. assignee
-	user_name = frappe.get_cached_value("User", frappe.session.user, "full_name")
+	user_name = frappe.get_cached_value("User", assigned_by, "full_name")
 	title = get_title(doc_type, doc_name)
 	description_html = f"<div>{description}</div>" if description else None
 
@@ -277,7 +277,7 @@ def notify_assignment(
 		"document_type": doc_type,
 		"subject": subject,
 		"document_name": doc_name,
-		"from_user": frappe.session.user,
+		"from_user": assigned_by,
 		"email_content": description_html,
 	}
 
