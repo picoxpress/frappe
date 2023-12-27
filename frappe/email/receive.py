@@ -895,6 +895,10 @@ class InboundMail(Email):
 		if email_fields.sender_name_field:
 			parent.set(email_fields.sender_name_field, frappe.as_unicode(self.from_real_name))
 
+		if email_fields.email_account_field:
+			parent.set(email_fields.email_account_field, self.email_account)
+
+
 		parent.flags.ignore_mandatory = True
 
 		try:
@@ -944,6 +948,10 @@ class InboundMail(Email):
 		for field in email_fields:
 			if hasattr(meta, field):
 				fields[field] = getattr(meta, field)
+
+		if meta.get_link_doctype("email_account") == 'Email Account':
+			fields['email_account_field'] = 'email_account'
+
 		return fields
 
 	@staticmethod
