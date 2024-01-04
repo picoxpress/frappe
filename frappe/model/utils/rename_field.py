@@ -168,8 +168,8 @@ def update_user_settings(doctype, old_fieldname, new_fieldname):
 	user_settings = frappe.db.sql(
 		''' select user, doctype, data from `__UserSettings`
 		where doctype=%s and data like %s''',
-		(doctype, "%%%s%%" % old_fieldname)
-		as_dict=1,
+		(doctype, "%%%s%%" % old_fieldname),
+		as_dict=True,
 	)
 
 	for user_setting in user_settings:
