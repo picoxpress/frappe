@@ -1701,6 +1701,8 @@ def get_link_to_report(
 
 
 def get_absolute_url(doctype: str, name: str) -> str:
+	if doctype == "HD Ticket" or slug(doctype) == "hd-ticket":
+		return f"/helpdesk/tickets/{quoted(name)}"
 	return f"/app/{quoted(slug(doctype))}/{quoted(name)}"
 
 
