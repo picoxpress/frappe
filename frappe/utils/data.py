@@ -1705,7 +1705,7 @@ def get_absolute_url(doctype: str, name: str) -> str:
 
 
 def get_url_to_form(doctype: str, name: str) -> str:
-	if (doctype == "HD Ticket"):
+	if doctype == "HD Ticket" or slug(doctype) == "hd-ticket":
 		return get_url(uri=f"/helpdesk/tickets/{quoted(name)}")
 	return get_url(uri=f"/app/{quoted(slug(doctype))}/{quoted(name)}")
 
