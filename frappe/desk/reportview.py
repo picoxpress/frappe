@@ -8,7 +8,7 @@ from io import StringIO
 
 import frappe
 import frappe.permissions
-from frappe import _
+from frappe import _, get_doctype_from_table
 from frappe.core.doctype.access_log.access_log import make_access_log
 from frappe.model import child_table_fields, default_fields, get_permitted_fields, optional_fields
 from frappe.model.base_document import get_controller
@@ -441,7 +441,7 @@ def get_labels(fields, doctype):
 			continue
 
 		if "." in key:
-			parenttype, fieldname = key.split(".")[0][4:-1], key.split(".")[1].strip("`")
+			parenttype, fieldname = key.split(".")[0][4:-1].strip("(`"), key.split(".")[1].strip("`")
 		else:
 			parenttype = doctype
 			fieldname = fieldname.strip("`")
@@ -449,7 +449,7 @@ def get_labels(fields, doctype):
 		if parenttype == doctype and fieldname == "name":
 			label = _("ID", context="Label of name column in report")
 		else:
-			df = frappe.get_meta(parenttype).get_field(fieldname)
+			df = frappe.get_meta(get_doctype_from_table(parenttype)).get_field(fieldname)
 			label = _(df.label if df else fieldname.title())
 			if parenttype != doctype:
 				# If the column is from a child table, append the child doctype.
@@ -469,12 +469,12 @@ def handle_duration_fieldtype_values(doctype, data, fields):
 			continue
 
 		if "." in key:
-			parenttype, fieldname = key.split(".")[0][4:-1], key.split(".")[1].strip("`")
+			parenttype, fieldname = key.split(".")[0][4:-1].strip("(`"), key.split(".")[1].strip("`")
 		else:
 			parenttype = doctype
 			fieldname = field.strip("`")
 
-		df = frappe.get_meta(parenttype).get_field(fieldname)
+		df = frappe.get_meta(get_doctype_from_table(parenttype)).get_field(fieldname)
 
 		if df and df.fieldtype == "Duration":
 			index = fields.index(field) + 1

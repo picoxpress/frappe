@@ -2425,6 +2425,15 @@ def validate_and_sanitize_search_inputs(fn):
 
 	return wrapper
 
+def get_doctype_from_table(table_name):
+	if table_name.startswith("tab"):
+		return remove_prefix(table_name, "tab")
+	return table_name
+
+def remove_prefix(text, prefix):
+	if text.startswith(prefix):
+		return text[len(prefix):]
+	return text
 
 if _tune_gc:
 	# generational GC gets triggered after certain allocs (g0) which is 700 by default.
@@ -2434,3 +2443,5 @@ if _tune_gc:
 	# everything else.
 	g0, g1, g2 = gc.get_threshold()  # defaults are 700, 10, 10.
 	gc.set_threshold(g0 * 10, g1 * 2, g2 * 2)
+
+
