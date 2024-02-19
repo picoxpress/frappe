@@ -462,8 +462,7 @@ class EmailAccount(Document):
 					# notify all participants of this thread
 					if self.enable_auto_reply:
 						self.send_auto_reply(communication, mail)
-
-					communication.send_email(is_inbound_mail_communcation=True)
+					# communication.send_email(is_inbound_mail_communcation=True)
 			except SentEmailInInboxError:
 				frappe.db.rollback()
 			except Exception:
